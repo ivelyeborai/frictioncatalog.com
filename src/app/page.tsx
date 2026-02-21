@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { products } from "@/data/products";
+import { Newsletter } from "@/components/newsletter";
 
 export default function Home() {
   return (
@@ -14,9 +15,12 @@ export default function Home() {
             <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
               Home
             </Link>
-            <a href="#shop" className="hover:text-[var(--foreground)] transition-colors">
+            <Link href="/shop" className="hover:text-[var(--foreground)] transition-colors">
               Shop
-            </a>
+            </Link>
+            <Link href="/blog" className="hover:text-[var(--foreground)] transition-colors">
+              Blog
+            </Link>
             <Link href="/contract" className="hover:text-[var(--foreground)] transition-colors">
               Contract
             </Link>
@@ -125,6 +129,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Newsletter */}
+      <Newsletter />
 
       {/* Footer */}
       <footer className="border-t border-[var(--border)]">

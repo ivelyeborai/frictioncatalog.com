@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
+import { generateContractPdf } from "@/lib/generate-contract-pdf";
 
 interface ContractData {
   familyName: string;
@@ -876,8 +877,14 @@ export default function ContractCreator() {
               {/* Print / Download */}
               <div className="flex gap-4 print:hidden">
                 <button
-                  onClick={handlePrint}
+                  onClick={() => generateContractPdf(data)}
                   className="rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-80"
+                >
+                  Download PDF
+                </button>
+                <button
+                  onClick={handlePrint}
+                  className="rounded-full border border-[var(--border)] px-6 py-3 text-sm font-semibold transition-colors hover:bg-neutral-50"
                 >
                   Print Contract
                 </button>

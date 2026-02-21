@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Parent-Child Technology Contract",
+  description:
+    "Create a mutual family agreement about device boundaries, screen time limits, and intentional technology use.",
+  openGraph: {
+    title: "Parent-Child Technology Contract — Friction Catalog",
+    description:
+      "Create a mutual family agreement about device boundaries, screen time limits, and intentional technology use.",
+  },
+};
 
 export default function Contract() {
   return (

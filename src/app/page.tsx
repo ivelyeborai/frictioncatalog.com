@@ -176,6 +176,11 @@ export default function Home() {
             Pro-intentionality. Every product here makes you think before you act.
           </p>
           <p className="mt-4 text-xs text-[var(--muted)]">
+            As an Amazon Associate, Friction Catalog earns from qualifying
+            purchases. This doesn&apos;t affect our recommendations — we only
+            list tools we believe in.
+          </p>
+          <p className="mt-4 text-xs text-[var(--muted)]">
             © 2026 Friction Catalog · For The People, Always
           </p>
         </div>

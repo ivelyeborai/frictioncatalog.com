@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Work_Sans, Courier_Prime } from "next/font/google";
+import { ServiceWorkerRegister } from "./sw-register";
 import "./globals.css";
 
 const workSans = Work_Sans({
@@ -15,9 +16,27 @@ const courierPrime = Courier_Prime({
 });
 
 export const metadata: Metadata = {
-  title: "Friction Catalog — Technology That Makes You Think",
+  title: {
+    default: "Friction Catalog — Technology That Makes You Think",
+    template: "%s — Friction Catalog",
+  },
   description:
     "Every tool here introduces intentional friction — space between stimulus and response. Not punishment. Not deprivation. Space for choice.",
+  metadataBase: new URL("https://frictioncatalog.com"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Friction Catalog",
+    title: "Friction Catalog — Technology That Makes You Think",
+    description:
+      "Every tool here introduces intentional friction — space between stimulus and response.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Friction Catalog — Technology That Makes You Think",
+    description:
+      "Every tool here introduces intentional friction — space between stimulus and response.",
+  },
 };
 
 export default function RootLayout({
@@ -31,6 +50,7 @@ export default function RootLayout({
         className={`${workSans.variable} ${courierPrime.variable} font-sans antialiased`}
       >
         {children}
+        <ServiceWorkerRegister />
       </body>
     </html>
   );

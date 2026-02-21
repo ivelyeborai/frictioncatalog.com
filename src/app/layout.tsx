@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Work_Sans, Courier_Prime } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ServiceWorkerRegister } from "./sw-register";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
         className={`${workSans.variable} ${courierPrime.variable} font-sans antialiased`}
       >
         {children}
+        <Analytics />
         <ServiceWorkerRegister />
       </body>
     </html>

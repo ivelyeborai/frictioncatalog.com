@@ -1,47 +1,5 @@
 import Link from "next/link";
-
-const products = [
-  {
-    emoji: "📱",
-    name: "Nokia 2780 Flip",
-    price: "$88.99",
-    description:
-      "The phone that makes you think before you text. 4G, KaiOS, no infinite scroll.",
-    url: "https://amzn.to/4rnEBRv",
-  },
-  {
-    emoji: "📷",
-    name: "Kodak M35 Film Camera",
-    price: "$59.99",
-    description:
-      "35mm film. 36 shots. No do-overs. Every frame matters.",
-    url: "https://amzn.to/4bWVBcH",
-  },
-  {
-    emoji: "📡",
-    name: "Motorola T100 Talkabout",
-    price: "$27.49",
-    description:
-      "Basic 16-mile range. Perfect for coordinating without screens.",
-    url: "https://amzn.to/4qqz4Jb",
-  },
-  {
-    emoji: "📻",
-    name: "Midland GXT1000VP4",
-    price: "$74.99",
-    description:
-      "Serious 36-mile range. NOAA weather alerts. For when communication matters.",
-    url: "https://amzn.to/4rjDP7Q",
-  },
-  {
-    emoji: "📓",
-    name: "Leuchtturm1917 Hardcover",
-    price: "$31.50",
-    description:
-      "Dotted notebook. Paper that doesn't judge. 249 pages of actual thought.",
-    url: "https://amzn.to/4qb4zH1",
-  },
-];
+import { products } from "@/data/products";
 
 export default function Home() {
   return (
@@ -87,16 +45,16 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div
-              key={product.name}
+              key={product.slug}
               className="flex flex-col justify-between rounded-lg border border-[var(--border)] p-6 transition-shadow hover:shadow-md"
             >
-              <div>
+              <Link href={`/shop/${product.slug}`} className="block">
                 <span className="text-3xl">{product.emoji}</span>
                 <h3 className="mt-3 text-lg font-semibold">{product.name}</h3>
                 <p className="mt-2 text-sm text-[var(--muted)] leading-relaxed">
-                  {product.description}
+                  {product.tagline}
                 </p>
-              </div>
+              </Link>
               <div className="mt-5 flex items-center justify-between">
                 <span className="font-mono text-lg font-bold">
                   {product.price}

@@ -142,7 +142,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "Reading on a phone means competing with every app for your attention. One notification and you're gone. The Kindle removes that entire battlefield. There's nothing else to do on it. No tabs to switch to, no feeds to check. When you pick it up, you read. When you put it down, you stop. That simplicity is the friction — it forces you to commit to one activity instead of skimming across twenty.",
-    url: "https://amzn.to/placeholder-kindle",
+    url: "https://amzn.to/3MyTdid",
     category: "Reading",
   },
   {
@@ -165,7 +165,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "A smartwatch is a second screen strapped to your body. Every buzz, every notification, every ring closure gamifies your day into a series of interruptions. The Casio F-91W answers the only question a watch should answer: what time is it? You glance, you know, you move on. No temptation to scroll, no reason to linger. Fifteen dollars to reclaim your wrist from the attention economy.",
-    url: "https://amzn.to/placeholder-casio",
+    url: "https://amzn.to/4aMfCka",
     category: "Timepiece",
   },
   {
@@ -186,7 +186,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "Streaming music is perfectly frictionless. An algorithm picks the next song, and the next, and the next, forever. You never have to choose, so you never really listen. Vinyl forces every part of the process to be intentional. You browse your shelf, you choose an album, you handle the record, you drop the needle. Twenty minutes later, the side ends and you make another choice. Music becomes an activity instead of background noise.",
-    url: "https://amzn.to/placeholder-turntable",
+    url: "https://amzn.to/4rBOSKu",
     category: "Audio",
   },
   {
@@ -207,7 +207,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "Typing is fast and forgettable. A fountain pen makes you slow down enough to think about what you're writing as you write it. The ink flow demands a steady hand and consistent pressure. You can't mash delete — crossed-out words stay visible, a record of your thinking process. Writing by hand activates different cognitive pathways than typing. You retain more, process deeper, and produce more considered thoughts.",
-    url: "https://amzn.to/placeholder-lamy",
+    url: "https://amzn.to/4aJJSfA",
     category: "Creative",
   },
   {
@@ -229,7 +229,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "Time tracking apps live on your phone, which means opening your phone, which means getting distracted. The TimeFlip sits on your desk as a physical reminder of what you should be doing right now. Flipping it is a micro-ritual — a deliberate transition between activities. The physicality makes procrastination visible. When the \"work\" side has been up for 10 minutes and you've been scrolling, the disconnect is undeniable.",
-    url: "https://amzn.to/placeholder-timeflip",
+    url: "https://amzn.to/3Oq8wKI",
     category: "Focus",
   },
   {
@@ -252,7 +252,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "The Light Phone II doesn't fight your willpower — it removes the battlefield entirely. There's no browser to accidentally open, no app store to browse, no feed to scroll. The e-ink display is beautiful but deliberately slow, making the phone unpleasant to stare at for long. This is a phone you use for 5 minutes a day, not 5 hours. The premium price is the cost of a phone that respects your time.",
-    url: "https://amzn.to/placeholder-lightphone",
+    url: "https://amzn.to/3MDxXYE",
     category: "Communication",
   },
   {
@@ -274,7 +274,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "Instagram trained us to document everything, edit obsessively, and post for validation. The Polaroid reverses every part of that process. You can't review before you commit — the film is already exposed. You can't edit — what you see is what developed. You can't post — it's a physical object. And the 15-minute development time means you sit with anticipation instead of instant gratification. Photography becomes a gift you give to the moment, not content you extract from it.",
-    url: "https://amzn.to/placeholder-polaroid",
+    url: "https://amzn.to/4rBP50e",
     category: "Creative",
   },
   {
@@ -296,7 +296,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "This is friction by subtraction. The noise cancellation doesn't add stimulation — it removes it. In a world designed to grab your attention from every direction, the ability to create silence is a superpower. Use them to protect a reading session, deepen a vinyl listening experience, or just sit in quiet. The friction isn't in the device — it's in choosing silence when everything around you is screaming for attention.",
-    url: "https://amzn.to/placeholder-bose",
+    url: "https://amzn.to/4s2uP7y",
     category: "Audio",
   },
   {
@@ -317,7 +317,7 @@ export const products: Product[] = [
     ],
     whyFriction:
       "Phone timers require unlocking your phone to check them — and once you're in, you're vulnerable to every notification waiting for you. An hourglass sits in your peripheral vision, silently counting down. Glance at it and you know roughly where you are. No screen, no temptation, no rabbit hole. It's also a shared object — everyone at the table can see the sand. Time becomes a collective experience instead of a private notification.",
-    url: "https://amzn.to/placeholder-hourglass",
+    url: "https://amzn.to/3MSivb8",
     category: "Focus",
   },
 ];

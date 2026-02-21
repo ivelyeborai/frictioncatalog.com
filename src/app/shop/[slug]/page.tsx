@@ -34,8 +34,26 @@ export default async function ProductPage({
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    offers: {
+      "@type": "Offer",
+      price: product.price.replace("$", ""),
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: product.url,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <header className="border-b border-[var(--border)]">
         <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
           <Link href="/" className="text-lg font-extrabold tracking-tight">

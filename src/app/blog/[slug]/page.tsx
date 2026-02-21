@@ -112,8 +112,31 @@ export default async function BlogPost({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: {
+      "@type": "Organization",
+      name: "Friction Catalog",
+      url: "https://frictioncatalog.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Friction Catalog",
+      url: "https://frictioncatalog.com",
+    },
+    mainEntityOfPage: `https://frictioncatalog.com/blog/${post.slug}`,
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <header className="border-b border-[var(--border)]">
         <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
           <Link href="/" className="text-lg font-extrabold tracking-tight">

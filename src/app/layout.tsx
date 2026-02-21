@@ -45,11 +45,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Friction Catalog",
+    url: "https://frictioncatalog.com",
+    description:
+      "Technology that creates space between stimulus and response. Curated tools for intentional living.",
+  };
+
   return (
     <html lang="en">
       <body
         className={`${workSans.variable} ${courierPrime.variable} font-sans antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         {children}
         <Analytics />
         <ServiceWorkerRegister />

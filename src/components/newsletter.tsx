@@ -2,24 +2,48 @@
 
 import { useState } from "react";
 
+const BUTTONDOWN_USERNAME = "friction-catalog";
+
 export function Newsletter() {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email) return;
-    // TODO: Connect to email provider (Buttondown, ConvertKit, etc.)
-    setSubmitted(true);
+
+    setStatus("loading");
+    try {
+      const res = await fetch(
+        `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ email, tag: "friction-report" }),
+        }
+      );
+
+      if (res.ok || res.status === 303) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMsg("Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please try again.");
+    }
   }
 
-  if (submitted) {
+  if (status === "success") {
     return (
       <section className="border-t border-[var(--border)] bg-neutral-50">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
           <p className="text-lg font-semibold">Thanks for subscribing.</p>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            We&apos;ll send you essays on intentional friction. No spam, ever.
+            Check your inbox to confirm. We&apos;ll send you essays on
+            intentional friction. No spam, ever.
           </p>
         </div>
       </section>
@@ -47,11 +71,15 @@ export function Newsletter() {
           />
           <button
             type="submit"
-            className="rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-80"
+            disabled={status === "loading"}
+            className="rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-80 disabled:opacity-50"
           >
-            Subscribe
+            {status === "loading" ? "..." : "Subscribe"}
           </button>
         </form>
+        {status === "error" && (
+          <p className="mt-3 text-sm text-red-600">{errorMsg}</p>
+        )}
       </div>
     </section>
   );

@@ -1,19 +1,41 @@
 "use client";
 
-import { useRef, useState } from "react";
-
-const BUTTONDOWN_URL =
-  "https://buttondown.com/api/emails/embed-subscribe/friction-catalog";
+import { useState } from "react";
 
 export function Newsletter() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit() {
-    setSubmitted(true);
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        const data = await res.json().catch(() => null);
+        setErrorMsg(data?.error || "Something went wrong. Please try again.");
+        setStatus("error");
+      }
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+      setStatus("error");
+    }
   }
 
-  if (submitted) {
+  if (status === "success") {
     return (
       <section className="border-t border-[var(--border)] bg-neutral-50">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
@@ -37,28 +59,26 @@ export function Newsletter() {
           Occasional essays on intentional friction, analog tools, and
           protecting your attention. No spam. Unsubscribe anytime.
         </p>
-        <form
-          ref={formRef}
-          action={BUTTONDOWN_URL}
-          method="post"
-          target="_blank"
-          onSubmit={handleSubmit}
-          className="mt-6 flex gap-3 max-w-md"
-        >
+        <form onSubmit={handleSubmit} className="mt-6 flex gap-3 max-w-md">
           <input
             type="email"
-            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="you@example.com"
             className="flex-1 rounded-full border border-[var(--border)] px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           />
           <button
             type="submit"
-            className="rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-80"
+            disabled={status === "loading"}
+            className="rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-80 disabled:opacity-50"
           >
-            Subscribe
+            {status === "loading" ? "Subscribing..." : "Subscribe"}
           </button>
         </form>
+        {status === "error" && (
+          <p className="mt-3 text-sm text-red-600">{errorMsg}</p>
+        )}
       </div>
     </section>
   );

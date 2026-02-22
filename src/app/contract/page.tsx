@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Parent-Child Technology Contract",
@@ -15,24 +17,7 @@ export const metadata: Metadata = {
 export default function Contract() {
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-[var(--border)]">
-        <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-lg font-extrabold tracking-tight">
-            FRICTION CATALOG
-          </Link>
-          <div className="flex gap-6 text-sm font-semibold text-[var(--muted)]">
-            <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
-              Home
-            </Link>
-            <a href="/#shop" className="hover:text-[var(--foreground)] transition-colors">
-              Shop
-            </a>
-            <Link href="/contract" className="text-[var(--foreground)]">
-              Contract
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <Header />
 
       <main className="mx-auto max-w-4xl px-6 py-20 md:py-28">
         <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
@@ -80,6 +65,8 @@ export default function Contract() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

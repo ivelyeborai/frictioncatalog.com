@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { products, getProductBySlug } from "@/data/products";
+import { getPostsForProduct } from "@/data/posts";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -34,6 +37,8 @@ export default async function ProductPage({
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
+  const relatedPosts = getPostsForProduct(slug);
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -54,33 +59,7 @@ export default async function ProductPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
-      <header className="border-b border-[var(--border)]">
-        <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-lg font-extrabold tracking-tight">
-            FRICTION CATALOG
-          </Link>
-          <div className="flex gap-6 text-sm font-semibold text-[var(--muted)]">
-            <Link
-              href="/"
-              className="hover:text-[var(--foreground)] transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/#shop"
-              className="hover:text-[var(--foreground)] transition-colors"
-            >
-              Shop
-            </Link>
-            <Link
-              href="/contract"
-              className="hover:text-[var(--foreground)] transition-colors"
-            >
-              Contract
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <Header />
 
       <main className="mx-auto max-w-4xl px-6 py-16">
         {/* Breadcrumb */}
@@ -89,7 +68,7 @@ export default async function ProductPage({
             Home
           </Link>
           {" / "}
-          <Link href="/#shop" className="hover:text-[var(--foreground)]">
+          <Link href="/shop" className="hover:text-[var(--foreground)]">
             Shop
           </Link>
           {" / "}
@@ -182,19 +161,35 @@ export default async function ProductPage({
               ))}
           </div>
         </div>
+
+        {/* Related Blog Posts */}
+        {relatedPosts.length > 0 && (
+          <div className="mt-20 border-t border-[var(--border)] pt-12">
+            <h2 className="text-2xl font-extrabold tracking-tight">
+              Related Articles
+            </h2>
+            <div className="mt-6 space-y-4">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="block rounded-lg border border-[var(--border)] p-4 transition-shadow hover:shadow-md"
+                >
+                  <h3 className="font-semibold">{post.title}</h3>
+                  <p className="mt-1 text-sm text-[var(--muted)]">
+                    {post.description}
+                  </p>
+                  <p className="mt-2 text-xs text-[var(--muted)]">
+                    {post.readTime}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
 
-      <footer className="border-t border-[var(--border)]">
-        <div className="mx-auto max-w-4xl px-6 py-10">
-          <p className="text-sm text-[var(--muted)]">
-            As an Amazon Associate, Friction Catalog earns from qualifying
-            purchases.
-          </p>
-          <p className="mt-4 text-xs text-[var(--muted)]">
-            &copy; 2026 Friction Catalog &middot; For The People, Always
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

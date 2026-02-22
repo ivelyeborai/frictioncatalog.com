@@ -38,6 +38,11 @@ export const metadata: Metadata = {
     description:
       "Every tool here introduces intentional friction — space between stimulus and response.",
   },
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
 };
 
 export default function RootLayout({

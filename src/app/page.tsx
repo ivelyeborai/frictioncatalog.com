@@ -1,32 +1,13 @@
 import Link from "next/link";
 import { products } from "@/data/products";
 import { Newsletter } from "@/components/newsletter";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-[var(--border)]">
-        <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-lg font-extrabold tracking-tight">
-            FRICTION CATALOG
-          </Link>
-          <div className="flex gap-6 text-sm font-semibold text-[var(--muted)]">
-            <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
-              Home
-            </Link>
-            <Link href="/shop" className="hover:text-[var(--foreground)] transition-colors">
-              Shop
-            </Link>
-            <Link href="/blog" className="hover:text-[var(--foreground)] transition-colors">
-              Blog
-            </Link>
-            <Link href="/contract" className="hover:text-[var(--foreground)] transition-colors">
-              Contract
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <Header />
 
       {/* Hero */}
       <section className="mx-auto max-w-4xl px-6 py-20 md:py-28">
@@ -133,23 +114,7 @@ export default function Home() {
       {/* Newsletter */}
       <Newsletter />
 
-      {/* Footer */}
-      <footer className="border-t border-[var(--border)]">
-        <div className="mx-auto max-w-4xl px-6 py-10">
-          <p className="text-sm text-[var(--muted)]">
-            Technology that creates space. Not anti-technology.
-            Pro-intentionality. Every product here makes you think before you act.
-          </p>
-          <p className="mt-4 text-xs text-[var(--muted)]">
-            As an Amazon Associate, Friction Catalog earns from qualifying
-            purchases. This doesn&apos;t affect our recommendations — we only
-            list tools we believe in.
-          </p>
-          <p className="mt-4 text-xs text-[var(--muted)]">
-            © 2026 Friction Catalog · For The People, Always
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

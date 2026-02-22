@@ -1,54 +1,95 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
-import { useState } from "react";
-import { products, categories } from "@/data/products";
+import { notFound } from "next/navigation";
+import {
+  products,
+  categories,
+  categorySlug,
+  getCategoryBySlug,
+  getProductsByCategory,
+} from "@/data/products";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
-export default function Shop() {
-  const [active, setActive] = useState<string | null>(null);
-  const filtered = active ? products.filter((p) => p.category === active) : products;
+export function generateStaticParams() {
+  return categories.map((c) => ({ category: categorySlug(c) }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category: slug } = await params;
+  const category = getCategoryBySlug(slug);
+  if (!category) return {};
+  return {
+    title: `${category} — Intentional Tools`,
+    description: `Browse ${category.toLowerCase()} products that introduce intentional friction between impulse and action.`,
+    openGraph: {
+      title: `${category} — Friction Catalog`,
+      description: `Intentional ${category.toLowerCase()} tools curated by Friction Catalog.`,
+    },
+  };
+}
+
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category: slug } = await params;
+  const category = getCategoryBySlug(slug);
+  if (!category) notFound();
+
+  const filtered = getProductsByCategory(category);
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
 
       <main className="mx-auto max-w-4xl px-6 py-16">
-        <h1 className="text-4xl font-extrabold tracking-tight">
-          Intentional Tools
-        </h1>
+        <div className="mb-8 text-sm text-[var(--muted)]">
+          <Link href="/" className="hover:text-[var(--foreground)]">
+            Home
+          </Link>
+          {" / "}
+          <Link href="/shop" className="hover:text-[var(--foreground)]">
+            Shop
+          </Link>
+          {" / "}
+          <span className="text-[var(--foreground)]">{category}</span>
+        </div>
+
+        <h1 className="text-4xl font-extrabold tracking-tight">{category}</h1>
         <p className="mt-4 max-w-2xl text-[var(--muted)] leading-relaxed">
-          Every product here introduces friction between impulse and action.
-          Not punishment — space for choice.
+          Intentional {category.toLowerCase()} tools that introduce friction
+          between impulse and action.
         </p>
 
-        {/* Category filters */}
+        {/* Category pills */}
         <div className="mt-8 flex flex-wrap gap-2">
-          <button
-            onClick={() => setActive(null)}
-            className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-              active === null
-                ? "bg-[var(--accent)] text-white"
-                : "bg-neutral-100 text-[var(--muted)] hover:bg-neutral-200"
-            }`}
+          <Link
+            href="/shop"
+            className="rounded-full bg-neutral-100 px-4 py-1.5 text-sm font-semibold text-[var(--muted)] hover:bg-neutral-200 transition-colors"
           >
             All ({products.length})
-          </button>
+          </Link>
           {categories.map((cat) => {
-            const count = products.filter((p) => p.category === cat).length;
+            const count = getProductsByCategory(cat).length;
+            const isActive = cat === category;
             return (
-              <button
+              <Link
                 key={cat}
-                onClick={() => setActive(cat === active ? null : cat)}
+                href={`/shop/category/${categorySlug(cat)}`}
                 className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-                  active === cat
+                  isActive
                     ? "bg-[var(--accent)] text-white"
                     : "bg-neutral-100 text-[var(--muted)] hover:bg-neutral-200"
                 }`}
               >
                 {cat} ({count})
-              </button>
+              </Link>
             );
           })}
         </div>
@@ -88,18 +129,6 @@ export default function Shop() {
             </div>
           ))}
         </div>
-
-        {/* Hidden crawlable category links for SEO */}
-        <nav className="sr-only" aria-label="Product categories">
-          {categories.map((cat) => (
-            <Link
-              key={cat}
-              href={`/shop/category/${cat.toLowerCase().replace(/\s+/g, "-")}`}
-            >
-              {cat}
-            </Link>
-          ))}
-        </nav>
       </main>
 
       <Footer />

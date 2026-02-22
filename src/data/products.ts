@@ -324,6 +324,14 @@ export const products: Product[] = [
 
 export const categories = [...new Set(products.map((p) => p.category))];
 
+export function categorySlug(category: string): string {
+  return category.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function getCategoryBySlug(slug: string): string | undefined {
+  return categories.find((c) => categorySlug(c) === slug);
+}
+
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }

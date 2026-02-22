@@ -1039,3 +1039,7 @@ And when you notice yourself drifting back — reaching for the phone out of hab
 export function getPostBySlug(slug: string): Post | undefined {
   return posts.find((p) => p.slug === slug);
 }
+
+export function getPostsForProduct(productSlug: string): Post[] {
+  return posts.filter((p) => p.content.includes(`/shop/${productSlug}`));
+}

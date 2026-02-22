@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { products } from "@/data/products";
+import { products, categories, categorySlug } from "@/data/products";
 import { posts } from "@/data/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +14,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `https://frictioncatalog.com/blog/${p.slug}`,
     lastModified: new Date(p.date),
     changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const categoryPages = categories.map((c) => ({
+    url: `https://frictioncatalog.com/shop/category/${categorySlug(c)}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
 
@@ -48,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    ...categoryPages,
     ...productPages,
     ...blogPages,
   ];

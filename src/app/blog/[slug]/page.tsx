@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { posts, getPostBySlug } from "@/data/posts";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -137,27 +139,7 @@ export default async function BlogPost({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <header className="border-b border-[var(--border)]">
-        <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-lg font-extrabold tracking-tight">
-            FRICTION CATALOG
-          </Link>
-          <div className="flex gap-6 text-sm font-semibold text-[var(--muted)]">
-            <Link href="/" className="hover:text-[var(--foreground)] transition-colors">
-              Home
-            </Link>
-            <Link href="/shop" className="hover:text-[var(--foreground)] transition-colors">
-              Shop
-            </Link>
-            <Link href="/blog" className="hover:text-[var(--foreground)] transition-colors">
-              Blog
-            </Link>
-            <Link href="/contract" className="hover:text-[var(--foreground)] transition-colors">
-              Contract
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <Header />
 
       <main className="mx-auto max-w-3xl px-6 py-16">
         <Link
@@ -214,13 +196,7 @@ export default async function BlogPost({
         </div>
       </main>
 
-      <footer className="border-t border-[var(--border)]">
-        <div className="mx-auto max-w-4xl px-6 py-10">
-          <p className="text-xs text-[var(--muted)]">
-            &copy; 2026 Friction Catalog &middot; For The People, Always
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

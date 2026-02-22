@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useRef } from "react";
 import { generateContractPdf } from "@/lib/generate-contract-pdf";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 interface ContractData {
   familyName: string;
@@ -181,20 +182,7 @@ export default function ContractCreator() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-[var(--border)]">
-        <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-          <span className="text-lg font-extrabold tracking-tight">
-            CONTRACT CREATOR
-          </span>
-          <Link
-            href="/"
-            className="text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
-          >
-            ← Back to Friction Catalog
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main className="mx-auto max-w-3xl px-6 py-12">
         {/* Progress */}
@@ -911,6 +899,8 @@ export default function ContractCreator() {
           </button>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

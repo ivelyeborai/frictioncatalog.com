@@ -39,6 +39,7 @@ export const metadata: Metadata = {
       "Every tool here introduces intentional friction — space between stimulus and response.",
   },
   alternates: {
+    canonical: "/",
     types: {
       "application/rss+xml": "/feed.xml",
     },
